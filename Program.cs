@@ -9,8 +9,6 @@ namespace Task_24
         {
             Dictionary<string, string> dossiers = new Dictionary<string, string>();
 
-            
-
             bool enterOrExit = true;
 
             dossiers.Add("Иванов Иван Иванович","Сантехник");
@@ -43,8 +41,7 @@ namespace Task_24
                 Console.Clear();
             }
         }
-
-        private static void AddDossiers(Dictionary<string, string> dossiers)
+        static void AddDossiers(Dictionary<string, string> dossiers)
         {
             string fullname;
             string position;
@@ -58,8 +55,7 @@ namespace Task_24
             dossiers.Add(fullname, position);
             Console.WriteLine($"\nВы добавили {fullname} - {position}\n");
         }
-
-        private static void OutputDossiers(Dictionary<string, string> dossiers)
+        static void OutputDossiers(Dictionary<string, string> dossiers)
         {
             foreach (var item in dossiers)
             {
@@ -68,17 +64,17 @@ namespace Task_24
             Console.WriteLine();
         }
 
-        private static void DeleteDossier(Dictionary<string, string> dossiers)
+        static void DeleteDossier(Dictionary<string, string> dossiers)
         {
-            string fullname;
-            Console.Write("Введите фио : ");
-            fullname = Console.ReadLine();
+            string dossier;
+            Console.Write("Введите фио или должность : ");
+            dossier = Console.ReadLine();
 
             foreach (var item in dossiers)
             {
-                if (fullname == item.Key)
+                if (dossier == item.Key || dossier == item.Value)
                 {
-                    dossiers.Remove(fullname);
+                    dossiers.Remove(dossier);
                 }
             }            
         }
