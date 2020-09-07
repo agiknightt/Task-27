@@ -1,55 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Task_27
+namespace Task_24
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> vocabulary = new Dictionary<string, string>();
+            Dictionary<string, string> dossiers = new Dictionary<string, string>();
 
-            AddDefinition(vocabulary);
+            
 
-            CheckingWordInDictionary(vocabulary);
-        }
-
-        private static void AddDefinition(Dictionary<string, string> vocabulary)
-        {
-            vocabulary.Add("Трава", " в фармацевтике лекарственное растительное сырьё: высушенная или свежая надземная часть травянистых растений. ");
-            vocabulary.Add("Стол", "предмет обихода, мебельное изделие, имеющее приподнятую горизонтальную или наклонную поверхность.");
-            vocabulary.Add("Стул", "мебель, предназначенная для сидения одного человека, со спинкой и сиденьем с подлокотниками или без них.");
-            vocabulary.Add("Чайник", "полое изделие (сосуд) различной формы с крышкой, ручкой и носиком, предназначенное для кипячения воды и заваривания чая.");
-            vocabulary.Add("Табурет", "мебельное изделие для сидения одного человека без спинки и подлокотников.");
-        }
-
-        private static void CheckingWordInDictionary(Dictionary<string, string> vocabulary)
-        {
-            string word;
             bool enterOrExit = true;
+
+            dossiers.Add("Иванов Иван Иванович","Сантехник");
+            dossiers.Add("Петров Петр Петрович", "Слесарь");
+            dossiers.Add("Викторов Виктор Викторович", "Монтажник");
+            dossiers.Add("Алексеев Алексей Алексеевич", "Учитель");
+            dossiers.Add("Генадьев Генадий Генадьевич", "Доктор");
 
             while (enterOrExit)
             {
-                Console.Write("Введите нужное слово : ");
-                word = Console.ReadLine();
+                Console.WriteLine("Выберите нужный пункт меню\n\n1 - добавить досье\n\n2 - вывести все досье\n\n3- удалить досье\n\n4 - выход\n\n");
 
-                if (vocabulary.ContainsKey(word))
+                switch (Convert.ToInt32(Console.ReadLine()))
                 {
-                    Console.WriteLine($"\n{word} - {vocabulary[word]}\n");
+                    case 1:
+                        AddDossiers(dossiers);
+                        break;
+                    case 2:
+                        OutputDossiers(dossiers);
+                        break;
+                    case 3:
+                        DeleteDossier(dossiers);
+                        break;
+                    case 4:
+                        enterOrExit = false;
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("К сожалению в словаре нет такого слова");
-                }
-
-                Console.WriteLine("Если хотите выйти из программы введите exit, для продолжения нажмите клавишу Enter...");
-
-                if (Console.ReadLine() == "exit")
-                {
-                    enterOrExit = false;
-                }
+                Console.WriteLine("\nНажмите любую клавишу для продолжения...\n");
+                Console.ReadKey();
                 Console.Clear();
             }
+        }
+
+        private static void AddDossiers(Dictionary<string, string> dossiers)
+        {
+            string fullname;
+            string position;
+
+            Console.Write("Введите фио : ");
+            fullname = Console.ReadLine();
+
+            Console.Write("Введите должность : ");
+            position = Console.ReadLine();
+
+            dossiers.Add(fullname, position);
+            Console.WriteLine($"\nВы добавили {fullname} - {position}\n");
+        }
+
+        private static void OutputDossiers(Dictionary<string, string> dossiers)
+        {
+            foreach (var item in dossiers)
+            {
+                Console.Write($"{item.Key} - {item.Value} ");
+            }
+            Console.WriteLine();
+        }
+
+        private static void DeleteDossier(Dictionary<string, string> dossiers)
+        {
+            string fullname;
+            Console.Write("Введите фио : ");
+            fullname = Console.ReadLine();
+
+            foreach (var item in dossiers)
+            {
+                if (fullname == item.Key)
+                {
+                    dossiers.Remove(fullname);
+                }
+            }            
         }
     }
 }
